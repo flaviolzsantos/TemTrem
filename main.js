@@ -1,8 +1,8 @@
 var request = require("request");
 var express = require("express");
-var email = require("nodemailer");
+//var email = require("nodemailer");
 var app = express();
-var transporter = email.createTransport('smtps://flaviolzsantos%40gmail.com:pass@smtp.gmail.com');
+//var transporter = email.createTransport('smtps://flaviolzsantos%40gmail.com:pass@smtp.gmail.com');
 
 
 app.get("/trem",function(req, res){
@@ -11,7 +11,7 @@ app.get("/trem",function(req, res){
 
 app.listen(3000);
 
-function enviaEmail(){
+/*function enviaEmail(){
 	var mailOptions = {
 		    from: '"aviso" <@blurdybloop.com>', // sender address
 		        to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
@@ -27,7 +27,7 @@ function enviaEmail(){
 				        }
 					    console.log('Message sent: ' + info.response);
 	});
-	}
+	}*/
 
 function temtrem(res){
 request({
