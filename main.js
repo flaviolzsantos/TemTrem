@@ -5,8 +5,8 @@ var app = express();
 var schedule = require('node-schedule');
  
 var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [0, new schedule.Range(2, 5)];
-rule.hour = 17;
+rule.dayOfWeek = [new schedule.Range(1, 6)];
+rule.hour = 8;
 rule.minute = 30;
 
 var h = schedule.scheduleJob(rule, function(){
@@ -14,8 +14,8 @@ var h = schedule.scheduleJob(rule, function(){
 });
 
 var rule2 = new schedule.RecurrenceRule();
-rule2.dayOfWeek = [0, new schedule.Range(2, 5)];
-rule2.hour = 8;
+rule2.dayOfWeek = [new schedule.Range(1, 6)];
+rule2.hour = 17;
 rule2.minute = 30;
 
 var h2 = schedule.scheduleJob(rule2, function(){
@@ -80,9 +80,10 @@ request({
 	},
 	function(error, response, body){
 		
-		var result = body.split("TURQUESA");
+		//var result = body.split("TURQUESA");
 		//if(result[1].substring(7,150).indexOf("Normal") < 0)
 			enviaEmail();
+			//console.log("enviou");
 		
 		});
 };
