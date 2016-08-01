@@ -7,12 +7,20 @@ var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(2, 5)];
 rule.hour = 17;
-rule.minute = 40;
+rule.minute = 30;
 
+var h = schedule.scheduleJob(rule, function(){
+	temtrem();
+});
 
- var j = schedule.scheduleJob(rule , function(){
-	 temtrem();;
- });
+var rule2 = new schedule.RecurrenceRule();
+rule2.dayOfWeek = [0, new schedule.Range(2, 5)];
+rule2.hour = 8;
+rule2.minute = 30;
+
+var h2 = schedule.scheduleJob(rule2, function(){
+        temtrem();
+});
 
 
 app.get("/trem",function(req, res){
@@ -45,10 +53,10 @@ var message = {
 	    to: '"Receiver Name" <flaviolzsantos@gmail.com>',
 
 	    // Subject of the messa
-	    subject: 'Nodemailer is unicode friendly ✔', 
+	    subject: 'Não tem trem', 
 
 	     // plaintext bod
-	     text: 'Hello to myself!',
+	     text: 'Não tem trem!',
 
 	     // HTML body
 	    html:'<p><b>Nao tem trem</b>'};
