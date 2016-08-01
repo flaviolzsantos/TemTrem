@@ -1,33 +1,69 @@
 var request = require("request");
 var express = require("express");
-//var email = require("nodemailer");
 var app = express();
-//var transporter = email.createTransport('smtps://flaviolzsantos%40gmail.com:pass@smtp.gmail.com');
+
+var schedule = require('node-schedule');
+ 
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(2, 5)];
+rule.hour = 17;
+rule.minute = 40;
+
+
+ var j = schedule.scheduleJob(rule , function(){
+	 temtrem();;
+ });
 
 
 app.get("/trem",function(req, res){
 	temtrem(res);
 	});
 
-app.listen(3000);
+//app.listen(3000);
 
-/*function enviaEmail(){
-	var mailOptions = {
-		    from: '"aviso" <@blurdybloop.com>', // sender address
-		        to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
-			    subject: 'Hello ✔', // Subject line
-			        text: 'Hello world 🐴', // plaintext body
-				    html: '<b>Hello world 🐴</b>' // html body
+function enviaEmail(){
+
+var nodemailer = require('nodemailer');
+
+// Create a SMTP transport object
+var transport = nodemailer.createTransport("SMTP", {
+	        service: 'Gmail',
+		     auth: {
+			     user: "notificacaonodejs@gmail.com",
+			     pass: "123nodejs"
+			   } });
+
+console.log('SMTP Configured');
+
+// Message object
+var message = {
+
+	    // sender info
+	    from: 'Sender Name <flaviolzsantos@gmail.com>',
+
+	    // Comma separated list of recipients
+	    to: '"Receiver Name" <flaviolzsantos@gmail.com>',
+
+	    // Subject of the messa
+	    subject: 'Nodemailer is unicode friendly ✔', 
+
+	     // plaintext bod
+	     text: 'Hello to myself!',
+
+	     // HTML body
+	    html:'<p><b>Nao tem trem</b>'};
+
+console.log('Sending Mail');
+transport.sendMail(message, function(error){
+	  if(error){
+		console.log('Error occured');
+		console.log(error.message);
+		return;
 	};
-
-	// send mail with defined transport object
-	transporter.sendMail(mailOptions, function(error, info){
-		    if(error){
-			            return console.log(error);
-				        }
-					    console.log('Message sent: ' + info.response);
-	});
-	}*/
+	 console.log('Message sent successfully!');
+	  //transport.close(); // close the connection pool
+});
+}
 
 function temtrem(res){
 request({
@@ -37,6 +73,8 @@ request({
 	function(error, response, body){
 		
 		var result = body.split("TURQUESA");
-		res.json({tem : (result[1].substring(7,150).indexOf("Normal") > 0)});
+		//if(result[1].substring(7,150).indexOf("Normal") < 0)
+			enviaEmail();
+		
 		});
 };
