@@ -4,12 +4,12 @@ var app = express();
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob({
-  cronTime: '00 30 11 * * 1-5',
+  cronTime: '00 50 11 * * 1-5',
   onTick: function() {
 	temtrem();
 	},
   start: false,
-  timeZone: '
+  timeZone: ''
 });
 job.start();
 
@@ -20,7 +20,7 @@ var job2 = new CronJob({
         temtrem();
         },
   start: false,
-  timeZone: '
+  timeZone: ''
 });
 job2.start();
 
