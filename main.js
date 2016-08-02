@@ -2,32 +2,28 @@ var request = require("request");
 var express = require("express");
 var app = express();
 
-var schedule = require('node-schedule');
- 
-var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [new schedule.Range(1, 6)];
-rule.hour = 8;
-rule.minute = 30;
-
-var h = schedule.scheduleJob(rule, function(){
+var CronJob = require('cron').CronJob;
+var job = new CronJob({
+  cronTime: '00 30 11 * * 1-5',
+  onTick: function() {
 	temtrem();
+	},
+  start: false,
+  timeZone: '
 });
+job.start();
 
-var rule2 = new schedule.RecurrenceRule();
-rule2.dayOfWeek = [new schedule.Range(1, 6)];
-rule2.hour = 17;
-rule2.minute = 30;
 
-var h2 = schedule.scheduleJob(rule2, function(){
+var job2 = new CronJob({
+  cronTime: '00 30 20 * * 1-5',
+  onTick: function() {
         temtrem();
+        },
+  start: false,
+  timeZone: '
 });
+job2.start();
 
-
-app.get("/trem",function(req, res){
-	temtrem(res);
-	});
-
-//app.listen(3000);
 
 function enviaEmail(){
 
